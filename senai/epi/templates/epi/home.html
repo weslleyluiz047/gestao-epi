@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão EPI - Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <ul>
+            <li>
+                <a class="botao efeito-cursor">Equipamentos</a>
+                <ul class="dropdown">
+                    <li><a href="#">Cadastrar</a></li>
+                    <li><a href="#">Editar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="botao efeito-cursor">Controle EPI</a>
+                <ul class="dropdown">
+                    <li><a href="#">Registrar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="botao efeito-cursor">Colaborador</a>
+                <ul class="dropdown">                    
+                    <li><a href="{% url 'adicionar_colaborador' %}">Cadastrar</a></li> 
+                    <li><a href="{% url 'relatorio_colaboradores' %}">Relatórios</a></li>
+                    <li><a href="{% url 'editar_colaborador' colaborador.id %}">Editar</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="user-info">
+            <ul>
+                <li>
+                    <a class="botao efeito-cursor">Usuário</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Configurações</a></li>
+                        <li><a href="#">Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="logo">
+        <img class="img-projeto" src="{% static 'css/img/logo.png' %}" alt="Logo do projeto">
+    </section>
+</body>
+</html>
