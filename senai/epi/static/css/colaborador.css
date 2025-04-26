@@ -1,3 +1,4 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -5,16 +6,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Corpo */
 body {
     background: #fff;
     color: #a1a0a0;
-}
-
-body, html {
     height: 100%;
-    margin: 0;
 }
 
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -23,20 +22,30 @@ header {
     background-color: #f8f8f8;
 }
 
-ul {
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+nav ul {
     display: flex;
     gap: 5px;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    list-style: none;
 }
 
-li {
+nav ul li {
     position: relative;
-    margin-right: 20px;
 }
 
-a {
+nav ul li a {
     text-decoration: none;
     padding: 10px;
     color: #333;
@@ -60,57 +69,47 @@ li:hover .dropdown {
     white-space: nowrap;
 }
 
-.botao {
+/* Botões */
+.botao, .user-button {
     display: inline-block;
     padding: 10px 15px;
     background-color: #4d7cfe;
     color: #fff;
     font-weight: bold;
     border-radius: 5px;
-}
-
-.user-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #4d7cfe;
-    color: #fff;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-.efeito-cursor {
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
 }
 
-.efeito-cursor:hover {
+.botao:hover, .user-button:hover {
     transform: translateY(-6px);
 }
 
+/* Pesquisa */
 .form-section {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
-    margin-top: 50px;
+    margin-bottom: 40px;
+    margin-top: 100px;
 }
 
 .form-pesquisa {
     display: flex;
-    width: 600px;
+    width: 400px;
 }
 
 .search-bar {
-    width: 450px; 
-    padding: 10px; 
+    width: 100%;
+    padding: 10px;
     border-radius: 8px;
-    border: 2px solid #ccc;
-    font-size: 14px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 /* Tabela */
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -118,25 +117,12 @@ li:hover .dropdown {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais clean */
-    font-size: 14px; 
-    color: #333;
 }
 
 .tabela th, .tabela td {
-    padding: 12px 15px;
+    padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-}
-
-.tabela th, .tabela td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.tabela tr:hover {
-    background-color: #f1f1f1;
 }
 
 .mensagem-vazia {

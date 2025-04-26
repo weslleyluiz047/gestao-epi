@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="pt-br">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Colaborador</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/relatorio_colaboradores.css' %}">
+    <title>Document</title>
 </head>
 <body>
     <header>
@@ -28,8 +27,8 @@
                 <a class="botao efeito-cursor">Colaborador</a>
                 <ul class="dropdown">                    
                     <li><a href="{% url 'adicionar_colaborador' %}">Cadastrar</a></li> 
-                    <li><a href="{% url 'relatorio_colaboradores' %}">Relatórios</a></li>
-                    <li><a href="{% url 'editar_colaborador' colaborador.id %}">Editar</a></li>
+                    <li><a href="#">Relatórios</a></li>
+                    <li><a href="#">Editar</a></li>
                 </ul>
             </li>
         </ul>
@@ -47,33 +46,44 @@
         </div>
     </header>
 
-    <main class="main-container">
-        <div class="edit-form-container">
-            <h1>Editar Colaborador</h1>
+    <!-- Campo de Pesquisa -->
+    <div class="form-section">
+        <form method="GET" action="{% url 'relatorio_colaboradores' %}" class="form-pesquisa">
+            <input type="text" name="search" class="search-bar" placeholder="Pesquisar pelo nome" value="{{ request.GET.search }}">
+            <button type="submit" class="botao">🔍 Buscar</button>
+        </form>
+    </div>
 
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" value="{{ colaborador.nome }}" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="cargo">Cargo:</label>
-                    <input type="text" id="cargo" name="cargo" value="{{ colaborador.cargo }}" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="matricula">Matrícula:</label>
-                    <input type="text" id="matricula" name="matricula" value="{{ colaborador.matricula }}" required>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="save-button">Salvar</button>
-                    <a href="{% url 'relatorio_colaboradores' %}" class="cancel-button">Cancelar</a>
-                </div>
-            </form>
-        </div>
-    </main>
+    <!-- Tabela de Colaboradores -->
+    <div class="container">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>Matrícula</th>
+                    <th>Equipamentos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if colaboradores %}
+                    {% for colaborador in colaboradores %}
+                        <tr>
+                            <td>{{ colaborador.nome }}</td>
+                            <td>{{ colaborador.cargo }}</td>
+                            <td>{{ colaborador.matricula }}</td>
+                            <td>{{ colaborador.equipamentos|default:"-" }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="mensagem-vazia">
+                            Desculpe, mas não encontramos dados correspondentes à sua busca.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

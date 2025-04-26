@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'epi',
+    'colaboradores'
 ]
 
 MIDDLEWARE = [

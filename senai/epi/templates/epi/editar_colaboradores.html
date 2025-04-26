@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Colaboradores</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/relatorio_colaboradores.css' %}">
+</head>
+<body>
+    <header> 
+        <!-- Header igual das outras telas -->
+        ...
+    </header>
+
+    <main class="main-container">
+        <!-- Formulário de busca -->
+        <form method="GET" action="{% url 'editar_colaboradores' %}" class="search-container">
+            <input type="text" name="q" placeholder="Pesquisar pelo nome..." value="{{ request.GET.q }}">
+            <button type="submit" class="search-button">🔍</button>
+        </form>
+
+        {% if colaboradores %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cargo</th>
+                        <th>Matrícula</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for colaborador in colaboradores %}
+                    <tr>
+                        <td>{{ colaborador.nome }}</td>
+                        <td>{{ colaborador.cargo }}</td>
+                        <td>{{ colaborador.matricula }}</td>
+                        <td>
+                            <a href="{% url 'editar_colaborador' colaborador.id %}" class="botao editar">✏️ Editar</a>
+
+                            <form method="POST" action="{% url 'deletar_colaborador' colaborador.id %}" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir este colaborador?');">
+                                {% csrf_token %}
+                                <button type="submit" class="botao deletar">🗑️ Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-data-message">
+            Desculpe, mas não encontramos dados correspondentes à sua busca.
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>

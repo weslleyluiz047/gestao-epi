@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ColaboradorForm
 from django.contrib import messages
 from .models import Colaborador
+
 
 def home(request):
     return render(request, 'epi/home.html')
@@ -24,26 +23,24 @@ def adicionar_colaborador(request):
     return render(request, 'epi/adicionar_colaborador.html', {'form': form})
 
 def relatorio_colaboradores(request):
-    colaboradores = Colaborador.objects.all()
-    return render(request, 'epi/relatorio_colaboradores.html', {'colaboradores': colaboradores})
-
-def relatorio_colaboradores(request):
-    query = request.GET.get('q')
-    if query:
-        colaboradores = Colaborador.objects.filter(nome__icontains=query)
+    search_query = request.GET.get('search', '')
+    if search_query:
+        colaboradores = Colaborador.objects.filter(nome__icontains=search_query)
     else:
         colaboradores = Colaborador.objects.all()
-    return render(request, 'epi/relatorio_colaboradores.html', {'colaboradores': colaboradores})
+    
+    return render(request, 'epi/relatorio_colaboradores.html', {
+        'colaboradores': colaboradores
+    })
 
-def editar_colaborador(request, colaborador_id):
-    colaborador = get_object_or_404(Colaborador, id=colaborador_id)
-    if request.method == 'POST':
-        colaborador.nome = request.POST['nome']
-        colaborador.cargo = request.POST['cargo']
-        colaborador.matricula = request.POST['matricula']
-        colaborador.save()
-        return redirect('relatorio_colaboradores')
-    return render(request, 'editar_colaborador.html', {'colaborador': colaborador})
+def colaborador_list(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        colaboradores = Colaborador.objects.filter(nome__icontains=search_query)
+    else:
+        colaboradores = Colaborador.objects.all()
+    
+    return render(request, 'colaborador_list.html', {'colaboradores': colaboradores})
 
 def deletar_colaborador(request, colaborador_id):
     colaborador = get_object_or_404(Colaborador, id=colaborador_id)
@@ -53,4 +50,7 @@ def deletar_colaborador(request, colaborador_id):
         return redirect('nome_da_sua_lista_colaboradores')  # Trocar para o nome correto da URL
 
     return render(request, 'confirmar_delecao.html', {'colaborador': colaborador})
+
+def equipamentos(request):
+    return render(request, 'equipamentos.html')
 
